@@ -1,5 +1,5 @@
 const { del } = require('express/lib/application');
-const RutinasManager = require('../dao/product-manager-db.cjs');
+const RutinasManager = require('../dao/dao-rutinas-db.cjs');
 const rutinasManager = new RutinasManager();
 
 async function getRutinas(req, res) {

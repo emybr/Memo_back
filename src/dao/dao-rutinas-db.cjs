@@ -1,6 +1,6 @@
 const Database = require('../mongodb/persistencia.cjs');
 const { createDocument, getDocument } = require('../mongodb/factory.cjs');
-const RutinasModels = require('../mongodb/models/models-products.cjs');
+const RutinasModels = require('../mongodb/models/models-rutinas.cjs');
 
 this.db = new Database();
 

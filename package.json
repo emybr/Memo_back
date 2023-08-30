@@ -4,7 +4,8 @@
   "description": "api dinamica ecomerce",
   "main": "main.cjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.cjs"
   },
   "author": "emiliano",
   "license": "ISC",

@@ -3,6 +3,17 @@ const RutinasManager = require('../dao/dao-rutinas-db.cjs');
 const rutinasManager = new RutinasManager();
 
 async function getRutinas(req, res) {
+    
+
+    // Configura los encabezados CORS para el origen permitido
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    // Verifica si es una solicitud OPTIONS (preflight) y responde apropiadamente
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
     // Recupera el día de la URL usando req.params
     const dia = req.params.dia;
 

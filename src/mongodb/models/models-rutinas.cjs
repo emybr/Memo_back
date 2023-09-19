@@ -6,7 +6,7 @@ const rutinasSchema = new mongoose.Schema({
         required: true,
         unique: true
     }, 
-    title: {
+    email: {
         type: String,
         required: true
     },
@@ -15,16 +15,19 @@ const rutinasSchema = new mongoose.Schema({
         required: true
     },
     mañana: [{
-        type: String,
-        required: true
+        horarioInicio:String,
+        horarioFin:String,
+        actividades:[String]
     }],
     tarde: [{
-        type: String,
-        required: true
+        horarioInicio:String,
+        horarioFin:String,
+        actividades:[String]
     }],
     noche: [{
-        type: String,
-        required: true
+        horarioInicio:String,
+        horarioFin:String,
+        actividades:[String]
     }],
     diaSemana: {
         type: String,

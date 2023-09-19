@@ -37,6 +37,96 @@ async function getDocument(collection, document) {
     }
 }
 
+async function updateDocument(collection, filter, update) {
+    try {
+        if (!this.db[collection]) {
+            await this.db.connectToDatabase();
+        }
+        const result = await this.db[collection].updateOne(
+            filter,
+            { $set: update }
+        );
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error al actualizar el documento');
+    }
+}
 
 
-module.exports = {createDocument, getDocument};
+
+// async function getDocumentsByValue(collection, field, value) {
+//     try {
+//         if (!this.db[collection]) { // Verifica si la base de datos está conectada
+//             await this.db.connectToDatabase();
+//         }
+        
+//         const query = {};
+//         query[field] = value;
+        
+//         return await this.db[collection].find(query).toArray();
+//     } catch (error) {
+//         console.error(error);
+//         throw error;
+//     }
+// }
+
+async function getDocumentsByValue(collection, field, value) {
+    try {
+        if (!this.db[collection]) { // Verifica si la base de datos está conectada
+            await this.db.connectToDatabase();
+        }
+        
+        const query = {};
+        query[field] = value;
+        
+        return await this.db[collection].find(query).toArray();
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+
+
+async function getAllDocuments(collection) {
+    try {
+        if (!this.db[collection]) { // Verifica si la base de datos está conectada
+            await this.db.connectToDatabase();
+        }
+
+        return await this.db[collection].find({}).toArray();
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+//actualido por parametro y busco por email o campo 
+
+
+async function updateDocumentValorFilter(collection, filter, fieldToUpdate, newValue) {
+    try {
+        if (!this.db[collection]) {
+            await this.db.connectToDatabase();
+        }
+
+        // Crea un objeto que representa la actualización dinámica
+        const update = {
+            $set: { [fieldToUpdate]: newValue }
+        };
+
+        const result = await this.db[collection].updateOne(
+            filter,
+            update
+        );
+
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error al actualizar el documento');
+    }
+}
+
+
+module.exports = {createDocument, getDocument,updateDocument,getDocumentsByValue,getAllDocuments,updateDocumentValorFilter};

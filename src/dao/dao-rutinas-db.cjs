@@ -1,27 +1,15 @@
 const Database = require('../mongodb/persistencia.cjs');
-const { createDocument, getDocument } = require('../mongodb/factory.cjs');
+const { createDocument, getDocument,updateDocumentValorFilter } = require('../mongodb/factory.cjs');
 const RutinasModels = require('../mongodb/models/models-rutinas.cjs');
 
-this.db = new Database();
+// this.db = new Database();
 
 class RutinasManager {
     constructor() {
         this.db = new Database();
         this.createDocument = createDocument;
         this.getDocument = getDocument;
-
-    }
-
-    async connectToDatabase() {
-        await this.db.connectToDatabase();
-    }
-
-    async disconnect() {
-        await this.db.disconnect();
-    }
-
-    async getProducts() {
-        return await this.db.getProducts();
+        this.updateDocumentValorFilter = updateDocumentValorFilter;
     }
 
     async getRutinas(dia) {
@@ -42,6 +30,14 @@ class RutinasManager {
         await this.deleteDocument('rutinas', id);
     }
 
+    async seleccionActividad(update,fieldToUpdate,newValue){
+        try {
+            const updateActividad = await this.updateDocumentValorFilter('rutinas',filter,update,fieldToUpdate,newValue);
+            return updateActividad;
+        } catch (error){
+            console.error('Error al actualizar actividad dao')
+        }
+    }
 
    
 }

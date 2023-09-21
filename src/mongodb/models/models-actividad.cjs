@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+//modificar para que se carguen las imagenes con los nombres de rachivos .png
 
 const actividadSchema = new mongoose.Schema({
     id: {
@@ -10,8 +10,8 @@ const actividadSchema = new mongoose.Schema({
         type: String,
         requiered: true
     },
-    imagen: {
-        type: String, 
+    pictogramas: {
+        type: [String], 
         required:true
     }
 });

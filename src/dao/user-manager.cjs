@@ -14,12 +14,11 @@ class UserManager {
         this.updateDocument = updateDocument
     }
 
-    async createUser(nombre, apellido, edad, email, password) {
+    async createUser(nombre, apellido, email, password) {
         const hashedPassword = await bcrypt.hash(password, 10)
         const user = UserModels({
             nombre,
             apellido,
-            edad,
             email,
             password: hashedPassword
         });

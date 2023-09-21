@@ -65,8 +65,30 @@ async function postSeleccion(req, res) {
     } catch (error) {
         res.status(500).json(error);
     }
+};
 
+
+//buscamos mañana,tarde o noche
+async function getHorarioActividad(req, res) {
+    const horarioDia = req.params.valor;
+    const categoria = "categoria"
+    console.log(horarioDia)
+
+    try {
+        
+        const rutinas = await actividadManager.getActividaByvalue(categoria,horarioDia);
+        const responseMessage = {
+            msg: 'get actividad',
+            actividades: rutinas // Aquí almacenamos los datos de la base de datos en la respuesta.
+        };
+        res.status(200).json(responseMessage);
+    } catch (error) {
+        res.status(500).json(error);
+    }
 }
 
 
-module.exports = { postActividad, buscarActividadesPorCategoria, getUrlImagen, postSeleccion }
+
+
+
+module.exports = { postActividad, buscarActividadesPorCategoria, getUrlImagen, postSeleccion,getHorarioActividad, }

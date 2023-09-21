@@ -1,14 +1,18 @@
 const UserManager = require('../dao/user-manager.cjs')
 const userManager = new UserManager
 const passport = require('passport');
+const RutinasManager = require('../dao/dao-rutinas-db.cjs')
+
+const rutinasManager = new RutinasManager
 
 
 
 async function postResisterUser (req,res){
     try{
-        const {nombre,apellido,edad,email,password} = req.body;
+        const {nombre,apellido,email,password} = req.body;
         
-        await userManager.createUser(nombre,apellido,edad,email,password);
+        await userManager.createUser(nombre,apellido,email,password);
+        await rutinasManager.createRutinas(email);
         // res.status(201).json({ message: "Usuario creado correctamente" });
         res.redirect('http://localhost:3000/login');
     } catch (error) {
@@ -60,7 +64,7 @@ async function postLoginUser(req, res, next) {
             await userManager.setLastConnection(user.email);
             req.session.email = user.email;
             req.session.role = foundUser.role;
-            req.session.role = user.role;
+            // req.session.role = user.role;
             
             // Aquí estableces el usuario en la sesión
             req.login(user, (loginErr) => {

@@ -13,7 +13,7 @@ class RutinasManager {
     }
 
     async getRutinas(dia) {
-        return await this.getDocument('rutinas', dia);
+        return await this.getDocument('rutinas', dia);             
     }
 
     async addRutina(rutina) {
@@ -39,7 +39,13 @@ class RutinasManager {
         }
     }
 
-   
+    async createRutinas (email){
+        const diasDeLaSemana = ['lunes','martes','miercoles','jueves','viernes','sabado','domingo']
+        for (let index = 0; index < diasDeLaSemana.length; index++) {
+            const dias = [email,index]
+            await this.createDocument('rutinas',dias)   
+        }
+    }
 }
 
 module.exports = RutinasManager;

@@ -14,7 +14,7 @@ async function postResisterUser (req,res){
         await userManager.createUser(nombre,apellido,email,password);
         await rutinasManager.createRutinas(email);
         // res.status(201).json({ message: "Usuario creado correctamente" });
-        res.redirect('http://localhost:3000/login');
+        res.redirect('https://memo-front-iota.vercel.app/login');
     } catch (error) {
         console.error('Error al crear el usuario:', error);
         res.status(500).json({ message: "Error al crear el usuario" });
@@ -65,6 +65,8 @@ async function postLoginUser(req, res, next) {
             req.session.email = user.email;
             req.session.role = foundUser.role;
             // req.session.role = user.role;
+
+            res.cookie('usuario', user.username, { maxAge: 3600000 }); // Ejemplo: expira en 1 hora
             
             // Aquí estableces el usuario en la sesión
             req.login(user, (loginErr) => {

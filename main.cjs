@@ -16,11 +16,12 @@ const sessionConfig = require('./src/sessions/sessionConfig.cjs')
 const passportConfig = require('./src/passport/passportConfig.cjs');
 const ActividadRouter  = require('./src/routers/actividad-router.cjs');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 
 sessionConfig(app);
 passportConfig(app, UserManager);
-
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

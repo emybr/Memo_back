@@ -1,12 +1,10 @@
 const mongoose = require('mongoose');
 
 const rutinasSchema = new mongoose.Schema({
-    id: {
-        type: [String],
-        required: true,
-        unique: true
-
-    }, 
+    // id: {
+    //     type: String,
+    //     unique: true
+    // }, 
     email: {
         type: String,
         required: true
@@ -27,7 +25,7 @@ const rutinasSchema = new mongoose.Schema({
         actividades:[String]
     }],
     diaSemana: {
-        type: [String],
+        type: String,
         required: true,
     }
 });

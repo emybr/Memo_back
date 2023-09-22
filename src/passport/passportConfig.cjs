@@ -35,7 +35,7 @@ const passportConfig = (app) => {
 
     passport.deserializeUser(async (id, done) => {
         try {
-            const user = await userManager.getUserByField('email', id);
+            const user = await userManager.getUserByField('_id', id);
             done(null, user);
         } catch (error) {
             done(error);

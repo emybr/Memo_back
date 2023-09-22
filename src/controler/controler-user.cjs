@@ -65,6 +65,7 @@ async function postLoginUser(req, res, next) {
             req.session.email = user.email;
             req.session.role = foundUser.role;
             // req.session.role = user.role;
+            
 
             res.cookie('usuario', user.email, { maxAge: 3600000 }); // Ejemplo: expira en 1 hora
             

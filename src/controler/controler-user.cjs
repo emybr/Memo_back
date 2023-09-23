@@ -48,6 +48,8 @@ async function postResisterUser(req, res) {
 //     })(req, res, next);
 // }
 
+
+// // funciona
 async function postLoginUser(req, res, next) {
     passport.authenticate('local', async (err, user, info) => {
         if (err) {
@@ -71,12 +73,13 @@ async function postLoginUser(req, res, next) {
                 }
                 
                 //ver para usar en otra ruta trae todos los datos de user
-                const userDAta = req.user
+                const userDAta = req.user.email
                 console.log(userDAta)
                 
                 // Después de iniciar sesión, puedes redireccionar al usuario 
                 //cambio link 'http://localhost:3000/tutor'
-                res.redirect(`https://memo-front-iota.vercel.app/homeUsuario?esarData=${encodeURIComponent(userDAta)}`);
+                // res.redirect(`https://memo-front-iota.vercel.app/homeUsuario?esarData=${encodeURIComponent(userDAta)}`);
+                res.redirect(`https://memo-front-iota.vercel.app/homeUsuario/${(userDAta)}`);
             });
         } catch (error) {
             console.error('Error al actualizar lastConnection:', error);
@@ -85,6 +88,9 @@ async function postLoginUser(req, res, next) {
     })(req, res, next);
 }
 
+
+
+  
 
 
 module.exports = { postResisterUser, postLoginUser }

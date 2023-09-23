@@ -7,11 +7,11 @@ const rutinasManager = new RutinasManager
 
 
 
-async function postResisterUser (req,res){
-    try{
-        const {nombre,apellido,email,password} = req.body;
-        
-        await userManager.createUser(nombre,apellido,email,password);
+async function postResisterUser(req, res) {
+    try {
+        const { nombre, apellido, email, password } = req.body;
+
+        await userManager.createUser(nombre, apellido, email, password);
         await rutinasManager.createRutinas(email);
         // res.status(201).json({ message: "Usuario creado correctamente" });
         res.redirect('https://memo-front-iota.vercel.app/login');
@@ -62,13 +62,7 @@ async function postLoginUser(req, res, next) {
                 return res.status(401).send('Usuario no encontrado');
             }
             await userManager.setLastConnection(user.email);
-            req.session.email = user.email;
-            req.session.role = foundUser.role;
-            // req.session.role = user.role;
-            
-
-            res.cookie('usuario', user.email, { maxAge: 3600000 }); // Ejemplo: expira en 1 hora
-            
+        
             // Aquí estableces el usuario en la sesión
             req.login(user, (loginErr) => {
                 if (loginErr) {
@@ -76,9 +70,13 @@ async function postLoginUser(req, res, next) {
                     return res.status(500).send('Error interno del servidor');
                 }
                 
+                //ver para usar en otra ruta trae todos los datos de user
+                const userDAta = req.user
+                console.log(userDAta)
+                
                 // Después de iniciar sesión, puedes redireccionar al usuario 
                 //cambio link 'http://localhost:3000/tutor'
-                res.redirect('https://memo-front-iota.vercel.app/tutor');
+                res.redirect(`https://memo-front-iota.vercel.app/homeUsuario?esarData=${encodeURIComponent(userDAta)}`);
             });
         } catch (error) {
             console.error('Error al actualizar lastConnection:', error);
@@ -89,4 +87,4 @@ async function postLoginUser(req, res, next) {
 
 
 
-module.exports ={postResisterUser,postLoginUser}
+module.exports = { postResisterUser, postLoginUser }

@@ -16,7 +16,7 @@ const sessionConfig = (app) => {
     app.use(session({
         secret: 'secreto',
         resave: false,
-        saveUninitialized: false,
+        saveUninitialized: true,
         store: store,
         cookie: {
             maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week in milliseconds

@@ -78,8 +78,9 @@ async function postLoginUser(req, res, next) {
                 
                 // Después de iniciar sesión, puedes redireccionar al usuario 
                 //cambio link 'http://localhost:3000/tutor'
-                // res.redirect(`https://memo-front-iota.vercel.app/homeUsuario?esarData=${encodeURIComponent(userDAta)}`);
-                res.redirect(`https://memo-front-iota.vercel.app/homeUsuario/${(userDAta)}`);
+                // res.redirect(`http://localhost:3000/homeUsuario/esarData=${(userDAta)}`);
+                //funciona
+                res.redirect(`https://memo-front-iota.vercel.app/homeUsuario/esarData=${(userDAta)}`);
             });
         } catch (error) {
             console.error('Error al actualizar lastConnection:', error);

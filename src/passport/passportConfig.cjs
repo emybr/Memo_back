@@ -62,6 +62,7 @@ const passportConfig = (app) => {
     passport.use(new passportLocal(
         { usernameField: 'email' },
         async (email, password, done) => {
+            console.log(email, password);
             const user = await userManager.getUserByField('email', email);
             if (!user) {
                 return done(null, false, { message: 'Credenciales inválidas' });

@@ -89,9 +89,50 @@ async function postLoginUser(req, res, next) {
     })(req, res, next);
 }
 
+//login home tutor
+async function postLoginTutor(req, res, next) {
+    passport.authenticate('local', async (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.status(401).send(info.message);
+        }
+        try {
+            const foundUser = await userManager.getUserByField('email', user.email);
+            if (!foundUser) {
+                return res.status(401).send('Usuario no encontrado');
+            }
+            await userManager.setLastConnection(user.email);
+        
+            // Aquí estableces el usuario en la sesión
+            req.login(user, (loginErr) => {
+                if (loginErr) {
+                    console.error('Error al iniciar sesión:', loginErr);
+                    return res.status(500).send('Error interno del servidor');
+                }
+                
+                //ver para usar en otra ruta trae todos los datos de user
+                const userDAta = req.user.email
+                console.log(userDAta)
+                
+                // Después de iniciar sesión, puedes redireccionar al usuario 
+                //cambio link 'http://localhost:3000/tutor'
+                // res.redirect(`http://localhost:3000/homeUsuario/esarData=${(userDAta)}`);
+                //funciona
+                console.log('Datos recibidos desde el frontend:');
+                console.log('Email del usuario:', user.email);
+                res.redirect(`https://memo-front-iota.vercel.app/tutor/esarData=${(userDAta)}`);
+            });
+        } catch (error) {
+            console.error('Error al actualizar lastConnection:', error);
+            return res.status(500).send('Error interno del servidor');
+        }
+    })(req, res, next);
+}
 
 
   
 
 
-module.exports = { postResisterUser, postLoginUser }
+module.exports = { postResisterUser, postLoginUser, postLoginTutor}

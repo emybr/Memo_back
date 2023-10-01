@@ -37,6 +37,10 @@ async function postActividad(req, res) {
 }
 
 async function getUrlImagen(req, res) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
     // const parametro = req.params.valor;
     const parametros = req.params.parametros.split('&parametros=');
     console.log(parametros)

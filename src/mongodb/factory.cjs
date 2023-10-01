@@ -87,7 +87,7 @@ async function getDocumentsByValue(collection, field, value) {
     }
 }
 
-async function getDocumentsByTwoValor(collection,value1,value2) {
+async function getDocumentsByTwoValor(collection, value1, value2) {
     try {
         if (!this.db[collection]) { // Verifica si la base de datos está conectada
             await this.db.connectToDatabase();
@@ -95,8 +95,8 @@ async function getDocumentsByTwoValor(collection,value1,value2) {
 
         // Realiza la búsqueda en la colección
         const result = await this.db[collection].findOne({
-            email:value1,
-            diaSemana:value2,
+            email: value1,
+            diaSemana: value2,
         });
 
         return result;
@@ -147,5 +147,47 @@ async function updateDocumentValorFilter(collection, filter, fieldToUpdate, newV
     }
 }
 
+async function updateValueInDocumentThreeFilter(collection, filter1, filter2, filter3, value) {
+    try {
+        if (!this.db[collection]) {
+            await this.db.connectToDatabase();
+        }
 
-module.exports = { createDocument, getDocument, updateDocument, getDocumentsByValue, getAllDocuments, updateDocumentValorFilter, getDocumentsByTwoValor };
+        const filter = {
+            email: filter1,
+            diaSemana: filter2
+        };
+
+        const update = {};
+
+        if (filter3 === "mañana") {
+            update.$push = { mañana: value };
+        } else if (filter3 === "tarde") {
+            update.$push = { tarde: value };
+        } else {
+            update.$push = { noche: value };
+        }
+
+        const result = await this.db[collection].updateOne(filter, update);
+
+        if (result.modifiedCount === 0) {
+            // throw new Error('No se encontró ningún documento para actualizar.');
+            return false;
+        }
+
+        // return result;
+        return true;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error al actualizar el valor en el documento');
+    }
+}
+
+
+
+
+
+module.exports = {
+    createDocument, getDocument, updateDocument, getDocumentsByValue, getAllDocuments,
+    updateDocumentValorFilter, getDocumentsByTwoValor, updateValueInDocumentThreeFilter
+};

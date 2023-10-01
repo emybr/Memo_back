@@ -17,6 +17,7 @@ const passportConfig = require('./src/passport/passportConfig.cjs');
 const ActividadRouter  = require('./src/routers/actividad-router.cjs');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const CategoriaRouter = require('./src/routers/categoria-router.cjs');
 
 
 sessionConfig(app);
@@ -40,7 +41,9 @@ app.use(cors(corsOptions));
 app.use('/', router);
 app.use('/login',UserRouter);
 app.use('/actividad',ActividadRouter)
+app.use('/categoria', CategoriaRouter)
 app.use('/public', express.static(path.join(__dirname, '../../public')));
+
 
 this.db.connectToDatabase().then(() => {
     console.log('Database connected');

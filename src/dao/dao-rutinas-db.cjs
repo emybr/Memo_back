@@ -1,5 +1,5 @@
 const Database = require('../mongodb/persistencia.cjs');
-const { createDocument, getDocument,updateDocumentValorFilter,getAllDocuments,getDocumentsByTwoValor,updateValueInDocumentThreeFilter  } = require('../mongodb/factory.cjs');
+const { createDocument, getDocument, updateDocumentValorFilter, getAllDocuments, getDocumentsByTwoValor, updateValueInDocumentThreeFilter } = require('../mongodb/factory.cjs');
 const RutinasModels = require('../mongodb/models/models-rutinas.cjs');
 
 // this.db = new Database();
@@ -16,17 +16,17 @@ class RutinasManager {
     }
 
     async getRutinas(dia) {
-        return await this.getDocument('rutinas', dia);             
+        return await this.getDocument('rutinas', dia);
     }
-    
-   
-    async getAllrutinaParams (dia){
-        return await this.getAllDocuments('rutinas', dia);             
+
+
+    async getAllrutinaParams(dia) {
+        return await this.getAllDocuments('rutinas', dia);
     }
-    
-    async getRutinaTutorDia (email,dia){
-        console.log(email,dia)
-        return await this.getDocumentsByTwoValor('rutinas',email,dia)
+
+    async getRutinaTutorDia(email, dia) {
+        console.log(email, dia)
+        return await this.getDocumentsByTwoValor('rutinas', email, dia)
     }
 
 
@@ -34,9 +34,9 @@ class RutinasManager {
         const newRutina = new RutinasModels(rutina);
         await this.createDocument('rutinas', newRutina);
     }
-    
-    async updateRutina(email,dia,horario,valor) {
-        const result = await this.updateValueInDocumentThreeFilter('rutinas',email,dia,horario,valor);
+
+    async updateRutina(email, dia, horario, valor) {
+        const result = await this.updateValueInDocumentThreeFilter('rutinas', email, dia, horario, valor);
         return result;
     }
 
@@ -44,19 +44,21 @@ class RutinasManager {
         await this.deleteDocument('rutinas', id);
     }
 
-    async seleccionActividad(update,fieldToUpdate,newValue){
+    async seleccionActividad(update, fieldToUpdate, newValue) {
         try {
-            const updateActividad = await this.updateDocumentValorFilter('rutinas',filter,update,fieldToUpdate,newValue);
+            const updateActividad = await this.updateDocumentValorFilter('rutinas', filter, update, fieldToUpdate, newValue);
             return updateActividad;
-        } catch (error){
+        } catch (error) {
             console.error('Error al actualizar actividad dao')
         }
     }
 
-    async createRutinas (email){
-            const nuevaRutina = new RutinasModels(email);
-            await this.createDocument('rutinas',nuevaRutina)   
-        }
+    async createRutinas(email) {
+        const nuevaRutina = new RutinasModels({
+            email: email,
+        });
+        await this.createDocument('rutinas', nuevaRutina)
+    }
 }
 
 module.exports = RutinasManager;

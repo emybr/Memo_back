@@ -54,17 +54,9 @@ class RutinasManager {
     }
 
     async createRutinas (email){
-        const diasDeLaSemana = ['lunes','martes','miercoles','jueves','viernes','sabado','domingo']
-        for (let index = 0; index < diasDeLaSemana.length; index++) {
-            const dia = diasDeLaSemana[index];
-            const documentoRutina = {
-                email: email,
-                diaSemana: dia
-            };
-            const nuevaRutina = new RutinasModels(documentoRutina);
+            const nuevaRutina = new RutinasModels(email);
             await this.createDocument('rutinas',nuevaRutina)   
         }
-    }
 }
 
 module.exports = RutinasManager;

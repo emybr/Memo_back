@@ -59,5 +59,4 @@ async function updateRutina(req, res) {
     }
 }
 
-
-module.exports = { postRutinas, getRutinas,updateRutina};
+module.exports = {  getRutinas,updateRutina};

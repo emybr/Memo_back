@@ -1,4 +1,4 @@
-const config = require('../config/firebase.js');
+const config = require('../config/firebase.cjs');
 
  async function login(req, res) {
     res.header('Access-Control-Allow-Origin', '*');

@@ -22,7 +22,21 @@ async function createDocument(collection, document) {
     }
 }
 
-
+// Funcion para buscar todo
+async function getAllDocumentsGenerico(collection, query = {}, select) {
+	console.log(collection)
+    try {
+		if (!this.db[collection]) { // Check if the database is connected
+            await this.db.connectToDatabase();
+		}
+		// busca una coleccion mediante una query, si la query es un objeto vacio pinta todo.
+		const document = await this.db[collection].find(query).project(select).toArray();
+		const total = await document.length;
+		return { document, total };
+	} catch (error) {
+		throw error;
+	}
+}
 
 async function getDocument(collection, document) {
     console.log(collection, document);
@@ -189,5 +203,5 @@ async function updateValueInDocumentThreeFilter(collection, filter1, filter2, fi
 
 module.exports = {
     createDocument, getDocument, updateDocument, getDocumentsByValue, getAllDocuments,
-    updateDocumentValorFilter, getDocumentsByTwoValor, updateValueInDocumentThreeFilter
+    updateDocumentValorFilter, getDocumentsByTwoValor, updateValueInDocumentThreeFilter,getAllDocumentsGenerico
 };

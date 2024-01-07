@@ -2,15 +2,15 @@ const mongoose = require('mongoose')
 //modificar para que se carguen las imagenes con los nombres de rachivos .png
 
 const actividadSchema = new mongoose.Schema({
-    id: {
-        type: String,
-        required: true 
-    },
     categoria:{
         type: String,
         requiered: true
     },
-    pictogramas: {
+    imageUrl: {
+        type: String, 
+        required:true
+    },
+    filtro: {
         type: [String], 
         required:true
     }

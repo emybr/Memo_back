@@ -1,6 +1,6 @@
 const Database = require('../mongodb/persistencia.cjs')
 const ActividadModel = require('../mongodb/models/models-actividad.cjs')
-const {createDocument,getDocumentsByValue,getAllDocuments, updateDocument} = require('../mongodb/factory.cjs')
+const {createDocument,getDocumentsByValue,getAllDocuments, updateDocument,getAllDocumentsGenerico} = require('../mongodb/factory.cjs')
 
 class ActividadManager{
     constructor(){
@@ -9,9 +9,11 @@ class ActividadManager{
         this.getDocumentsByValue = getDocumentsByValue
         this.getAllDocuments = getAllDocuments
         this.getupdateDocument = updateDocument
+        this.getAllDocumentsGenerico = getAllDocumentsGenerico
     }
 
     async createActividad(actividad){
+        console.log("actividadaaaaa",actividad)
         const newActividad = new ActividadModel(actividad);
         await this.createDocument('actividadCollection', newActividad);
     }
@@ -26,6 +28,12 @@ class ActividadManager{
         }
     }
     
+    async getAllActividadParams(query) {
+		const allEvents = await this.getAllDocumentsGenerico('actividadCollection', query);
+		return allEvents;
+	}
+
+
     // async seleccionActividad(filter,update){
     //     try {
     //         const updateActividad = await this.updateDocument('actividadCollection',filter,update);

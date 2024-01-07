@@ -1,7 +1,11 @@
 const express = require('express');
 const ActividadRouter =  express.Router();
-const {postActividad,buscarActividadesPorCategoria,getUrlImagen, postSeleccion, getHorarioActividad} = require('../controler/controler-actividad.cjs')
+const {postActividad,buscarActividadesPorCategoria,getUrlImagen, postSeleccion, getHorarioActividad, postActividadAdmin,getActividadParamsControler} = require('../controler/controler-actividad.cjs');
 
+
+//buscar actividad por parametros o todas
+
+ActividadRouter.get('/params',getActividadParamsControler);
 
 //busco las actividades (mañana,tarde,noche)
 
@@ -24,4 +28,6 @@ ActividadRouter.post('/seleccion',postSeleccion);
 
 //ruta para recibir palabra y devolver las actividades con las imagenes correspondientes
 
-module.exports = ActividadRouter;
+ActividadRouter.post('/post/admin',postActividadAdmin); 
+ 
+module.exports = ActividadRouter; 

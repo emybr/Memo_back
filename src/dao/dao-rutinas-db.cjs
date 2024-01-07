@@ -1,5 +1,5 @@
 const Database = require('../mongodb/persistencia.cjs');
-const { createDocument, getDocument, updateDocumentValorFilter, getAllDocuments, getDocumentsByTwoValor, updateValueInDocumentThreeFilter } = require('../mongodb/factory.cjs');
+const { createDocument, getDocument, updateDocumentValorFilter, getAllDocuments, getDocumentsByTwoValor, updateValueInDocumentThreeFilter,getAllDocumentsGenerico } = require('../mongodb/factory.cjs');
 const RutinasModels = require('../mongodb/models/models-rutinas.cjs');
 
 // this.db = new Database();
@@ -13,6 +13,7 @@ class RutinasManager {
         this.getAllDocuments = getAllDocuments
         this.getDocumentsByTwoValor = getDocumentsByTwoValor
         this.updateValueInDocumentThreeFilter = updateValueInDocumentThreeFilter
+        this.getAllDocumentsGenerico = getAllDocumentsGenerico
     }
 
     async getRutinas(dia) {
@@ -24,9 +25,11 @@ class RutinasManager {
         return await this.getAllDocuments('rutinas', dia);
     }
 
-    async getRutinaTutorDia(email, dia) {
-        console.log(email, dia)
-        return await this.getDocumentsByTwoValor('rutinas', email, dia)
+    async getRutinaTutorDia(email) {
+        const dataEmail = {
+            email:email
+        }
+        return await this.getAllDocumentsGenerico('rutinas',dataEmail)
     }
 
 

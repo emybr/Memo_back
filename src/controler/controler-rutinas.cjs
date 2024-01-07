@@ -15,12 +15,12 @@ async function getRutinas(req, res) {
         return res.sendStatus(200);
     }
     // Recupera el día de la URL usando req.params
-    const { dia, email } = req.params;
+    const {email} = req.params;
 
     try {
         // console.log(filtro1,filtro2)
         // const rutinas = await rutinasManager.getRutinas(filtro); // Pasa el filtro como argumento
-        const rutinas = await rutinasManager.getRutinaTutorDia(email, dia);
+        const rutinas = await rutinasManager.getRutinaTutorDia(email);
         res.status(200).json(rutinas);
     } catch (error) {
         res.status(500).json(error);

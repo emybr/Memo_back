@@ -110,7 +110,7 @@ async function getDocumentsByTwoValor(collection, value1, value2) {
         // Realiza la búsqueda en la colección
         const result = await this.db[collection].findOne({
             email: value1,
-            diaSemana: value2,
+            // lunes: value2,
         });
 
         return result;

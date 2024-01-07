@@ -5,7 +5,7 @@ const {postRutinas,getRutinas,updateRutina} = require('../controler/controler-ru
 
 // trae las rutinas creadas por el usuario 
 
-router.get('/rutinas/:email/:dia',getRutinas)
+router.get('/rutinas/:email',getRutinas)
 
 //crea rutinas
 

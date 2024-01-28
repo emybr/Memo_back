@@ -23,6 +23,8 @@ async function getActividadParamsControler(req, res) {
     }
 }
 
+
+
 //poner todos los errors igual que getactividadParams
 
 

@@ -3,6 +3,7 @@ const { createDocument, getDocument,updateDocument } = require('../mongodb/facto
 const bcrypt = require('bcrypt')
 const crypto = require('crypto')
 const UserModels = require('../mongodb/models/user-models.cjs')
+const MovilUserModels = require('../mongodb/models/models-movilUser.cjs')
 
 // this.db = Database
 
@@ -23,6 +24,14 @@ class UserManager {
             password: hashedPassword
         });
         await this.createDocument('usersCollection', user)
+    }
+
+    async createUserMovil(email){
+        const movilUser = MovilUserModels({
+            email
+        });
+        const resultado = await this.createDocument('movilUserCollection', movilUser)
+        return resultado;
     }
 
     async validateUser(email, password) {

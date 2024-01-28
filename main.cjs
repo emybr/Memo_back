@@ -49,14 +49,14 @@ admin.initializeApp({
         
     }),
 });
-
+//ver de cambiar la url base por api
 app.use(bodyParser.json());
-app.use('/', router);
-app.use('/login', UserRouter);
-app.use('/actividad', ActividadRouter)
-app.use('/categoria', CategoriaRouter)
-app.use('/login', loginRouter)
-app.use('/public', express.static(path.join(__dirname, '../../public')));
+app.use('/api/', router);
+app.use('/api/login', UserRouter);
+app.use('/api/actividad', ActividadRouter)
+app.use('/api/categoria', CategoriaRouter)
+app.use('/api/login', loginRouter)
+app.use('/api/public', express.static(path.join(__dirname, '../../public')));
 
 
 this.db.connectToDatabase().then(() => {

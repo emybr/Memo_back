@@ -21,6 +21,23 @@ async function postResisterUser(req, res) {
     }
 }
 
+async function postRegisterMovilUser(req, res) {
+    try {
+        const { email } = req.body;
+        const userMovil = await userManager.createUserMovil(email);
+        await rutinasManager.createRutinas(email);
+        return res.status(200).json({
+            data: userMovil,
+            status: 0,
+        });
+    } catch (error) {
+        return res.status(400).send({
+            status: 1,
+            message: error.message,
+        });
+    }
+}
+
 // async function postLoginUser(req, res, next) {
 //     passport.authenticate('local', async (err, user, info) => {
 //         if (err) {
@@ -64,18 +81,18 @@ async function postLoginUser(req, res, next) {
                 return res.status(401).send('Usuario no encontrado');
             }
             await userManager.setLastConnection(user.email);
-        
+
             // Aquí estableces el usuario en la sesión
             req.login(user, (loginErr) => {
                 if (loginErr) {
                     console.error('Error al iniciar sesión:', loginErr);
                     return res.status(500).send('Error interno del servidor');
                 }
-                
+
                 //ver para usar en otra ruta trae todos los datos de user
                 const userDAta = req.user.email
                 console.log(userDAta)
-                
+
                 // Después de iniciar sesión, puedes redireccionar al usuario 
                 //cambio link 'http://localhost:3000/tutor'
                 // res.redirect(`http://localhost:3000/homeUsuario/esarData=${(userDAta)}`);
@@ -104,18 +121,18 @@ async function postLoginTutor(req, res, next) {
                 return res.status(401).send('Usuario no encontrado');
             }
             await userManager.setLastConnection(user.email);
-        
+
             // Aquí estableces el usuario en la sesión
             req.login(user, (loginErr) => {
                 if (loginErr) {
                     console.error('Error al iniciar sesión:', loginErr);
                     return res.status(500).send('Error interno del servidor');
                 }
-                
+
                 //ver para usar en otra ruta trae todos los datos de user
                 const userDAta = req.user.email
                 console.log(userDAta)
-                
+
                 // Después de iniciar sesión, puedes redireccionar al usuario 
                 //cambio link 'http://localhost:3000/tutor'
                 // res.redirect(`http://localhost:3000/homeUsuario/esarData=${(userDAta)}`);
@@ -132,7 +149,7 @@ async function postLoginTutor(req, res, next) {
 }
 
 
-  
 
 
-module.exports = { postResisterUser, postLoginUser, postLoginTutor}
+
+module.exports = { postResisterUser, postLoginUser, postLoginTutor, postRegisterMovilUser }

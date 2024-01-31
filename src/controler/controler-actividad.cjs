@@ -116,7 +116,7 @@ async function getHorarioActividad(req, res) {
 
 async function postActividadAdmin(req, res) {
     try {
-        const { id, categoria, filtro } = req.body;
+        const { id, categoria, filtro, email } = req.body;
         const pictograma = req.files
 
         if (!pictograma || !req.files || !req.files.pictograma) {
@@ -130,7 +130,8 @@ async function postActividadAdmin(req, res) {
             id,
             categoria,
             imageUrl: img.downloadURL,
-            filtro
+            filtro,
+            email
         };
         console.log("dataaaa", dataActividad)
         await actividadManager.createActividad(dataActividad);

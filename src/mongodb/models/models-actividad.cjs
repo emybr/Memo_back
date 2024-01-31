@@ -13,6 +13,10 @@ const actividadSchema = new mongoose.Schema({
     filtro: {
         type: [String], 
         required:true
+    },
+    email: {
+        type: String, 
+        required:true
     }
 });
 

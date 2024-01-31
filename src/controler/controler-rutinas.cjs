@@ -45,7 +45,6 @@ async function postRutinas(req, res) {
 
 async function updateRutina(req, res) {
     const { email,dia,horario,valor } = req.body
-    console.log(email,dia,horario,valor)
 
     try {
         const rutinasDia = await rutinasManager.updateRutina(email,dia,horario,valor)
@@ -59,4 +58,18 @@ async function updateRutina(req, res) {
     }
 }
 
-module.exports = {  getRutinas,updateRutina};
+async function editRutinaController(req,res) {
+    const { email,dia,horario,valor } = req.body
+    try {
+        const rutinasDia = await rutinasManager.editRutina(email,dia,horario,valor)
+        if(rutinasDia){
+            res.status(200).json({message: 'Rutina editada correctamente'})
+        } else{
+        res.status(404).json({message: 'no se encontro rutina para editar'})
+        }
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
+module.exports = {  getRutinas,updateRutina,editRutinaController};

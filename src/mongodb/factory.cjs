@@ -9,13 +9,10 @@ this.db = new Database();
 async function createDocument(collection, document) {
     console.log(collection, document);
     try {
-
         if (!this.db[collection]) { // Check if the database is connected
             await this.db.connectToDatabase();
         }
         return await this.db[collection].insertOne(document);
-
-
     } catch (error) {
         console.error(error);
         throw error;
@@ -24,18 +21,18 @@ async function createDocument(collection, document) {
 
 // Funcion para buscar todo
 async function getAllDocumentsGenerico(collection, query = {}, select) {
-	console.log(collection)
+    console.log(collection)
     try {
-		if (!this.db[collection]) { // Check if the database is connected
+        if (!this.db[collection]) { // Check if the database is connected
             await this.db.connectToDatabase();
-		}
-		// busca una coleccion mediante una query, si la query es un objeto vacio pinta todo.
-		const document = await this.db[collection].find(query).project(select).toArray();
-		const total = await document.length;
-		return { document, total };
-	} catch (error) {
-		throw error;
-	}
+        }
+        // busca una coleccion mediante una query, si la query es un objeto vacio pinta todo.
+        const document = await this.db[collection].find(query).project(select).toArray();
+        const total = await document.length;
+        return { document, total };
+    } catch (error) {
+        throw error;
+    }
 }
 
 async function getDocument(collection, document) {
@@ -67,23 +64,6 @@ async function updateDocument(collection, filter, update) {
     }
 }
 
-
-
-// async function getDocumentsByValue(collection, field, value) {
-//     try {
-//         if (!this.db[collection]) { // Verifica si la base de datos está conectada
-//             await this.db.connectToDatabase();
-//         }
-
-//         const query = {};
-//         query[field] = value;
-
-//         return await this.db[collection].find(query).toArray();
-//     } catch (error) {
-//         console.error(error);
-//         throw error;
-//     }
-// }
 
 async function getDocumentsByValue(collection, field, value) {
     try {
@@ -120,8 +100,6 @@ async function getDocumentsByTwoValor(collection, value1, value2) {
     }
 }
 
-
-
 async function getAllDocuments(collection) {
     try {
         if (!this.db[collection]) { // Verifica si la base de datos está conectada
@@ -136,7 +114,6 @@ async function getAllDocuments(collection) {
 }
 
 //actualido por parametro y busco por email o campo 
-
 
 async function updateDocumentValorFilter(collection, filter, fieldToUpdate, newValue) {
     try {
@@ -161,26 +138,17 @@ async function updateDocumentValorFilter(collection, filter, fieldToUpdate, newV
     }
 }
 
+
 async function updateValueInDocumentThreeFilter(collection, filter1, filter2, filter3, value) {
+
     try {
         if (!this.db[collection]) {
             await this.db.connectToDatabase();
         }
 
-        const filter = {
-            email: filter1,
-            diaSemana: filter2
-        };
-
-        const update = {};
-
-        if (filter3 === "mañana") {
-            update.$push = { mañana: value };
-        } else if (filter3 === "tarde") {
-            update.$push = { tarde: value };
-        } else {
-            update.$push = { noche: value };
-        }
+        const updateKey = `rutina.${filter2}.${filter3}`;
+        const filter = { email: filter1 };
+        const update = { $push: { [updateKey]: value } };
 
         const result = await this.db[collection].updateOne(filter, update);
 
@@ -197,11 +165,32 @@ async function updateValueInDocumentThreeFilter(collection, filter1, filter2, fi
     }
 }
 
+async function editValueInDocumentThreeFilter(collection, filter1, filter2, filter3, value) {
+    try {
+        if (!this.db[collection]) {
+            await this.db.connectToDatabase();
+        }
 
+        const updateKey = `rutina.${filter2}.${filter3}`;
+        const filter = { email: filter1 };
+        const update = { $pull: { [updateKey]: value } };
+
+        const result = await this.db[collection].updateOne(filter, update);
+
+        if (result.modifiedCount === 0) {
+            return false; // No se encontró ningún documento para actualizar.
+        }
+
+        return true;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error al actualizar el valor en el documento');
+    }
+}
 
 
 
 module.exports = {
     createDocument, getDocument, updateDocument, getDocumentsByValue, getAllDocuments,
-    updateDocumentValorFilter, getDocumentsByTwoValor, updateValueInDocumentThreeFilter,getAllDocumentsGenerico
+    updateDocumentValorFilter, getDocumentsByTwoValor, updateValueInDocumentThreeFilter, getAllDocumentsGenerico, editValueInDocumentThreeFilter
 };

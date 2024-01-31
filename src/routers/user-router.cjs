@@ -1,5 +1,5 @@
 const express = require('express');
-const { postResisterUser,postLoginUser, postLoginTutor, postRegisterMovilUser } = require('../controler/controler-user.cjs');
+const { postResisterUser,postLoginUser, postLoginTutor, postRegisterMovilUser, updateUser } = require('../controler/controler-user.cjs');
 const UserRouter = express.Router();
 
 
@@ -13,6 +13,7 @@ UserRouter.post('/tutor', postLoginTutor)
 UserRouter.post('/register',postResisterUser)
 UserRouter.post('/registerMovilUser', postRegisterMovilUser)
 
-//
+//update
+UserRouter.post('/update/:email',updateUser)
 
 module.exports = UserRouter

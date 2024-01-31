@@ -89,7 +89,20 @@ class UserManager {
             throw new Error('Error al actualizar lastConnection');
         }
     }
-
+    
+    async updateUser(filter, dataUpdate) {
+		try {
+			const users = await this.updateDocument('movilUserCollection', filter, dataUpdate);
+			return users;
+		} catch (error) {
+			console.error(error);
+			throw new Error(`Error al actualizar usuario: ${error.message}`);
+		}
+	}
 }
+
+
+
+
 
 module.exports = UserManager;

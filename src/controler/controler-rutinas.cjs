@@ -72,4 +72,20 @@ async function editRutinaController(req,res) {
     }
 }
 
-module.exports = {  getRutinas,updateRutina,editRutinaController};
+async function editRutinaControllerFromArray(req,res) {
+    const {email,dia,horario,index} = req.body
+    try {
+        const rutinasDia = await rutinasManager.editRutinaFromArray(email,dia,horario,index)
+        if(rutinasDia){
+            res.status(200).json({message: 'Rutina editada correctamente'})
+        } else{
+        res.status(404).json({message: 'no se encontro rutina para editar'})
+        }
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
+
+
+module.exports = {  getRutinas,updateRutina,editRutinaController,editRutinaControllerFromArray};

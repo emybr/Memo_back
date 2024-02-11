@@ -188,9 +188,40 @@ async function editValueInDocumentThreeFilter(collection, filter1, filter2, filt
     }
 }
 
+async function deleteElementFromArray(collection, filter1, filter2, filter3, index) {
+    index = parseInt(index);
+    console.log('esto me llega en el factory', collection, filter1, filter2, filter3, index);
+    try {
+        if (!this.db[collection]) {
+            await this.db.connectToDatabase();
+        }
+
+        const updateKey = `rutina.${filter2}.${filter3}`;
+        const filter = { email: filter1 };
+        const unsetUpdate = { $unset: { [`${updateKey}.${index}`]: 1 } };
+        const pullUpdate = { $pull: { [updateKey]: null } }; // Removerá los elementos nulos después de usar $unset
+        const resultUnset = await this.db[collection].updateOne(filter, unsetUpdate);
+
+        if (resultUnset.modifiedCount === 0) {
+            return false; // No se encontró ningún documento para actualizar.
+        }
+
+        const resultPull = await this.db[collection].updateOne(filter, pullUpdate);
+
+        if (resultPull.modifiedCount === 0) {
+            return false; // No se encontró ningún documento para actualizar.
+        }
+
+        return true;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error al eliminar el elemento del array');
+    }
+}
+
 
 
 module.exports = {
     createDocument, getDocument, updateDocument, getDocumentsByValue, getAllDocuments,
-    updateDocumentValorFilter, getDocumentsByTwoValor, updateValueInDocumentThreeFilter, getAllDocumentsGenerico, editValueInDocumentThreeFilter
+    updateDocumentValorFilter, getDocumentsByTwoValor, updateValueInDocumentThreeFilter, getAllDocumentsGenerico, editValueInDocumentThreeFilter, deleteElementFromArray
 };

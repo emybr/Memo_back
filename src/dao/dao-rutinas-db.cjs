@@ -1,5 +1,5 @@
 const Database = require('../mongodb/persistencia.cjs');
-const { createDocument, getDocument, updateDocumentValorFilter, getAllDocuments, getDocumentsByTwoValor, updateValueInDocumentThreeFilter,getAllDocumentsGenerico,editValueInDocumentThreeFilter } = require('../mongodb/factory.cjs');
+const { createDocument, getDocument, updateDocumentValorFilter, getAllDocuments, getDocumentsByTwoValor, updateValueInDocumentThreeFilter,getAllDocumentsGenerico,editValueInDocumentThreeFilter,deleteElementFromArray } = require('../mongodb/factory.cjs');
 const RutinasModels = require('../mongodb/models/models-rutinas.cjs');
 
 // this.db = new Database();
@@ -15,6 +15,7 @@ class RutinasManager {
         this.updateValueInDocumentThreeFilter = updateValueInDocumentThreeFilter
         this.getAllDocumentsGenerico = getAllDocumentsGenerico
         this.editValueInDocumentThreeFilter = editValueInDocumentThreeFilter
+        this.deleteElementFromArray = deleteElementFromArray;
     }
 
     async getRutinas(dia) {
@@ -66,6 +67,11 @@ class RutinasManager {
 
     async editRutina(email, dia, horario, valor) {
         const result = await this.editValueInDocumentThreeFilter('rutinas', email, dia, horario, valor)
+        return result;
+    }
+
+    async editRutinaFromArray(email,dia,horario,index) {
+        const result = await this.deleteElementFromArray('rutinas', email, dia, horario, index)
         return result;
     }
 }

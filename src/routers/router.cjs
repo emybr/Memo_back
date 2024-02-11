@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {postRutinas,getRutinas,updateRutina, editRutinaController} = require('../controler/controler-rutinas.cjs');
+const {postRutinas,getRutinas,updateRutina, editRutinaController, editRutinaControllerFromArray} = require('../controler/controler-rutinas.cjs');
 
 
 
@@ -16,5 +16,7 @@ router.get('/rutinas/:email',getRutinas)
 router.post('/rutinas/update',updateRutina);
 
 router.post('/rutinas/edit',editRutinaController);
+
+router.post ('/rutinas/editArray', editRutinaControllerFromArray); 
 
 module.exports = router;

@@ -131,7 +131,7 @@ async function postActividadAdmin(req, res) {
             categoria,
             imageUrl: img.downloadURL,
             filtro,
-            email
+            email,
         };
         console.log("dataaaa", dataActividad)
         await actividadManager.createActividad(dataActividad);

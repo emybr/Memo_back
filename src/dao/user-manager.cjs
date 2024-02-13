@@ -99,6 +99,17 @@ class UserManager {
 			throw new Error(`Error al actualizar usuario: ${error.message}`);
 		}
 	}
+
+    async getUserMovil(email) {
+        try {
+            const query = email ;
+            const user = await this.getDocument('movilUserCollection', query);
+            return user;
+        } catch (error) {
+            console.error(error);
+            throw new Error(`Error al obtener el usuario por ${field}: ${error.message}`);
+        }
+    }
 }
 
 

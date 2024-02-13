@@ -152,7 +152,6 @@ async function postLoginTutor(req, res, next) {
 async function updateUser(req, res) {
 	const email = req.params;
 	const data = req.body;
-	console.log('BODYYYY', data);
 	try {
 		const Users = await userManager.updateUser(email, data);
         return res.status(200).json({
@@ -167,6 +166,21 @@ async function updateUser(req, res) {
     }
 }
 
+async function getUserMovil(req, res){
+    const email = req.params;
+    try {
+        const userMovil = await userManager.getUserMovil(email);
+        return res.status(200).json({
+            data: userMovil,
+            status: 0,
+        });
+    } catch (error) {
+        return res.status(400).send({
+            status: 1,
+            message: error.message,
+        });
+    }
+}
 
 
-module.exports = { postResisterUser, postLoginUser, postLoginTutor, postRegisterMovilUser,updateUser }
+module.exports = { postResisterUser, postLoginUser, postLoginTutor, postRegisterMovilUser,updateUser,getUserMovil }

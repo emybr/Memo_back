@@ -36,7 +36,6 @@ async function getAllDocumentsGenerico(collection, query = {}, select) {
 }
 
 async function getDocument(collection, document) {
-    console.log(collection, document);
     try {
         if (!this.db[collection]) { // Check if the database is connected
             await this.db.connectToDatabase();

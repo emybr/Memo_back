@@ -1,9 +1,9 @@
 const express = require('express');
-const { postResisterUser,postLoginUser, postLoginTutor, postRegisterMovilUser, updateUser } = require('../controler/controler-user.cjs');
+const { postResisterUser,postLoginUser, postLoginTutor, postRegisterMovilUser, updateUser, getUserMovil } = require('../controler/controler-user.cjs');
 const UserRouter = express.Router();
 
 
-UserRouter.get('/users')
+UserRouter.get('/users/:email', getUserMovil)
 
 //ruta de logueo
 UserRouter.post('/login', postLoginUser)

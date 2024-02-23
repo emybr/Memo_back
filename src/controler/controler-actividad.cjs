@@ -132,10 +132,10 @@ async function postActividadAdmin(req, res) {
             imageUrl: img.downloadURL,
             filtro,
             email,
+    
         };
         console.log("dataaaa", dataActividad)
         await actividadManager.createActividad(dataActividad);
-
         const responseMessage = {
             msg: 'Actividad creada correctamente en el controlador',
         };

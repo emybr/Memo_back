@@ -45,9 +45,12 @@ async function postRutinas(req, res) {
 
 async function updateRutina(req, res) {
     const { email,dia,horario,valor } = req.body
-
+    const data = {
+        "pictograma":valor,
+        "flag": false,
+    }
     try {
-        const rutinasDia = await rutinasManager.updateRutina(email,dia,horario,valor)
+        const rutinasDia = await rutinasManager.updateRutina(email,dia,horario,data)
         if(rutinasDia){
             res.status(200).json({message: 'Rutina actualizada correctamente'})
         } else{

@@ -28,6 +28,20 @@ class ActividadManager{
         }
     }
     
+    async getOneActividad(valor){
+        const data ={
+            "imageUrl":valor
+        }
+        try{
+            const resultados = await this.getAllDocumentsGenerico('actividadCollection',data);
+            return resultados;
+        }
+        catch(error){
+            console.error('Error al buscar actividad por valor dao:', error);
+            throw error; // Puedes propagar el error si es necesario
+        }
+    }
+
     async getAllActividadParams(query) {
 		const allEvents = await this.getAllDocumentsGenerico('actividadCollection', query);
 		return allEvents;

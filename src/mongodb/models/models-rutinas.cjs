@@ -6,43 +6,52 @@ const rutinasSchema = new mongoose.Schema({
         lunes: {
             manana: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: { type: [String], required: true, default: [] }
             }],
             tarde: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: { type: [String], required: true, default: [] }
             }],
             noche: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: { type: [String], required: true, default: [] }
             }]
         },
         martes: {
             manana: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: { type: [String], required: true, default: [] }
             }],
             tarde: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: {type:[String], required: true, default:[]}
             }],
             noche: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: {type:[String], required: true, default:[]}
             }]
         },
         miercoles: {
             manana: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: {type:[String], required: true, default:[]}
             }],
             tarde: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: {type:[String], required: true, default:[]}
             }],
             noche: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: {type:[String], required: true, default:[]}
             }]
         },
         jueves: {
@@ -52,53 +61,64 @@ const rutinasSchema = new mongoose.Schema({
             }],
             tarde: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: {type:[String], required: true, default:[]}
             }],
             noche: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: {type:[String], required: true, default:[]}
             }]
         },
         viernes: {
             manana: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: {type:[String], required: true, default:[]}
             }],
             tarde: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: {type:[String], required: true, default:[]}
             }],
             noche: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: {type:[String], required: true, default:[]}
             }]
         },
         sabado: {
             manana: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: {type:[String], required: true, default:[]}
             }],
             tarde: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: {type:[String], required: true, default:[]}
             }],
             noche: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: {type:[String], required: true, default:[]}
             }]
         },
         domingo: {
             manana: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: {type:[String], required: true, default:[]}
             }],
             tarde: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: {type:[String], required: true, default:[]}
             }],
             noche: [{
                 pictograma: { type: [String], required: true, default: [] },
-                flag: { type: Boolean, required: true, default: false }
+                flag: { type: Boolean, required: true, default: false },
+                categoria: {type:[String], required: true, default:[]}
             }]
         }
     }

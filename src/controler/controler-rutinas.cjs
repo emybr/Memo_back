@@ -1,6 +1,8 @@
 const { del } = require('express/lib/application');
 const RutinasManager = require('../dao/dao-rutinas-db.cjs');
+const  ActividadManager  = require('../dao/dao-actividades.cjs');
 const rutinasManager = new RutinasManager();
+const actividadManager = new ActividadManager();
 
 async function getRutinas(req, res) {
 
@@ -18,8 +20,6 @@ async function getRutinas(req, res) {
     const {email} = req.params;
 
     try {
-        // console.log(filtro1,filtro2)
-        // const rutinas = await rutinasManager.getRutinas(filtro); // Pasa el filtro como argumento
         const rutinas = await rutinasManager.getRutinaTutorDia(email);
         res.status(200).json(rutinas);
     } catch (error) {
@@ -45,9 +45,13 @@ async function postRutinas(req, res) {
 
 async function updateRutina(req, res) {
     const { email,dia,horario,valor } = req.body
+    const datos = await actividadManager.getOneActividad(valor)
+    const flag = datos.document[0].flag
+    const categoria = datos.document[0].categoria
     const data = {
         "pictograma":valor,
-        "flag": false,
+        "flag": flag,
+        "categoria":categoria,
     }
     try {
         const rutinasDia = await rutinasManager.updateRutina(email,dia,horario,data)
